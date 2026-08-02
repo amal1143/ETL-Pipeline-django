@@ -3,207 +3,219 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise ETL Dashboard</title>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<title>Enterprise ETL Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fa;
+        }
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
 
-<style>
+        .header {
+            background: #0f172a;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
 
-body{
-    margin:0;
-    font-family:Arial, Helvetica, sans-serif;
-    background:#f5f7fa;
-}
+        /* FIXED: renamed from .container */
+        .dashboard-container {
+            width: 90%;
+            margin: auto;
+            margin-top: 30px;
+        }
 
-.navbar-brand{
-    font-size:24px;
-    font-weight:bold;
-}
+        .cards {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-.header{
-    background:#0f172a;
-    color:white;
-    padding:25px;
-    text-align:center;
-}
+        .card {
+            width: 240px;
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+            transition: 0.3s;
+        }
 
-.container{
-    width:90%;
-    margin:auto;
-    margin-top:30px;
-}
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-.cards{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
+        .card h2 {
+            color: #0d6efd;
+            margin-bottom: 10px;
+            font-size: 36px;
+        }
 
-.card{
-    width:220px;
-    background:white;
-    border-radius:10px;
-    padding:25px;
-    text-align:center;
-    box-shadow:0 3px 10px rgba(0,0,0,.2);
-}
+        .card p {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
 
-.card h2{
-    color:#0d6efd;
-    margin-bottom:10px;
-}
+        .card small {
+            color: #6c757d;
+            font-size: 13px;
+        }
 
-.card p{
-    color:#555;
-    margin:0;
-}
+        .actions {
+            margin-top: 40px;
+            text-align: center;
+        }
 
-.actions{
-    margin-top:40px;
-    text-align:center;
-}
+        .actions a {
+            margin: 10px;
+            min-width: 180px;
+        }
 
-.actions a{
-    margin:10px;
-}
-
-footer{
-    margin-top:60px;
-    background:#212529;
-    color:white;
-    text-align:center;
-    padding:15px;
-}
-
-</style>
-
+        footer {
+            margin-top: 60px;
+            background: #212529;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
-
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'homepage' %}">
+            Enterprise ETL
+        </a>
 
-<div class="container-fluid">
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<a class="navbar-brand" href="/">
-Enterprise ETL
-</a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
 
-<button class="navbar-toggler"
-type="button"
-data-bs-toggle="collapse"
-data-bs-target="#navbarNav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'homepage' %}">Home</a>
+                </li>
 
-<span class="navbar-toggler-icon"></span>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
 
-</button>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'engineer_dashboard' %}">
+                        Dashboard
+                    </a>
+                </li>
 
-<div class="collapse navbar-collapse" id="navbarNav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        Logout
+                    </a>
+                </li>
 
-<ul class="navbar-nav ms-auto">
-
-<li class="nav-item">
-<a class="nav-link active" href="/">Home</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="/about/">About</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="{% url 'engineer_dashboard' %}">
-Dashboard
-</a>
-</li>
-
-<li class="nav-item">
-<a class="nav-link" href="{% url 'logout' %}">
-Logout
-</a>
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<!-- ================= HEADER ================= -->
 
+<!-- HEADER -->
 <div class="header">
+    <h1>Enterprise ETL Pipeline Dashboard</h1>
+    <p>Welcome, <strong>{{ request.user.first_name }}</strong></p>
+</div>
 
-<h1>Enterprise ETL Pipeline Dashboard</h1>
 
-<p>Welcome, <strong>{{ request.user.first_name }}</strong></p>
+<!-- DASHBOARD -->
+<div class="dashboard-container">
+
+    <div class="cards">
+
+        <div class="card">
+            <h2>{{ total_sources }}</h2>
+            <p>Connected APIs</p>
+            <small>All connected API source details are displayed here</small>
+        </div>
+
+        <div class="card">
+            <h2>{{ total_jobs }}</h2>
+            <p>ETL Jobs</p>
+            <small>ETL job details and execution status can be viewed here</small>
+        </div>
+
+        <div class="card">
+            <h2>{{ successful_jobs }}</h2>
+            <p>Successful Jobs</p>
+            <small>Successfully completed ETL jobs are shown here</small>
+        </div>
+
+        <div class="card">
+            <h2>{{ failed_jobs }}</h2>
+            <p>Failed Jobs</p>
+            <small>Failed ETL job details are displayed here</small>
+        </div>
+
+    </div>
+
+
+    <!-- BUTTONS -->
+    <div class="actions">
+
+        <a href="{% url 'api_sources' %}" class="btn btn-primary btn-lg">
+            Manage API Sources
+        </a>
+
+        <a href="{% url 'etl_jobs' %}" class="btn btn-success btn-lg">
+            Manage ETL Jobs
+        </a>
+
+        <a href="{% url 'pipeline' %}" class="btn btn-warning btn-lg">
+            Run Pipeline
+        </a>
+
+        <a href="{% url 'warehouse_sync' %}" class="btn btn-info btn-lg text-white">
+            Warehouse Sync
+        </a>
+
+        <a href="{% url 'etl_job_history' %}" class="btn btn-secondary btn-lg">
+            Job History
+        </a>
+
+        <a href="{% url 'logout' %}" class="btn btn-danger btn-lg">
+            Logout
+        </a>
+
+    </div>
 
 </div>
 
-<!-- ================= DASHBOARD ================= -->
 
-<div class="container">
-
-<div class="cards">
-
-<div class="card">
-<h2>{{ total_sources }}</h2>
-<p>Connected APIs</p>
-</div>
-
-<div class="card">
-<h2>{{ total_jobs }}</h2>
-<p>ETL Jobs</p>
-</div>
-
-<div class="card">
-<h2>{{ successful_jobs }}</h2>
-<p>Successful Jobs</p>
-</div>
-
-<div class="card">
-<h2>{{ failed_jobs }}</h2>
-<p>Failed Jobs</p>
-</div>
-
-</div>
-
-<!-- ================= BUTTONS ================= -->
-
-<div class="actions">
-
-<a href="{% url 'api_sources' %}" class="btn btn-primary">
-Manage API Sources
-</a>
-
-<a href="{% url 'etl_jobs' %}" class="btn btn-success">
-ETL Jobs
-</a>
-
-<a href="{% url 'logout' %}" class="btn btn-danger">
-Logout
-</a>
-
-</div>
-
-</div>
-
-<!-- ================= FOOTER ================= -->
-
+<!-- FOOTER -->
 <footer>
-
-<p>
-© 2026 Enterprise ETL Pipeline & Data Warehouse Synchronizer
-</p>
-
+    <p class="mb-0">
+        © 2026 Enterprise ETL Pipeline & Data Warehouse Synchronizer
+    </p>
 </footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
