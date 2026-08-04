@@ -80,6 +80,7 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': '0911',
         'HOST': 'localhost',
+        'PORT': '5432',
         
     }
 }
@@ -129,3 +130,16 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
 
+# ======================================================
+# EMAIL CONFIGURATION
+# ======================================================
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = "amalmfc115@gmail.com"
+EMAIL_HOST_PASSWORD = "abcd efgh ijkl mnop"
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
