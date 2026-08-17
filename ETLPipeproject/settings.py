@@ -30,7 +30,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ETLPipeproject.urls'
+ROOT_URLCONF = 'ETlPipeproject.urls'
 
 TEMPLATES = [
     {
@@ -47,7 +47,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ETLPipeproject.wsgi.application'
+WSGI_APPLICATION = 'ETlPipeproject.wsgi.application'
 
 DATABASES = {
     'default': {
